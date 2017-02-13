@@ -347,6 +347,122 @@
 
 				});
 
+		// Contact form max lengths
+		$("input[name=sender\\[name\\]]").maxlength({
+			max: 250,
+			truncate: false,
+			feedbackText: '{r} characters left ({m} max)',
+			overflowText: '{o} characters too many ({m} max)'
+		});
+		$("input[name=sender\\[email\\]]").maxlength({
+			max: 250,
+			truncate: false,
+			feedbackText: '{r} characters left ({m} max)',
+			overflowText: '{o} characters too many ({m} max)'
+		});
+		$("textarea[name=message\\[body\\]]").maxlength({
+			max: 1000,
+			truncate: false,
+			feedbackText: '{r} characters left ({m} max)',
+			overflowText: '{o} characters too many ({m} max)'
+		});
+
+		// Contact form submission
+		var contactFormSubmit = function() {
+			// Disable button before submitting
+			$("#send_message_submit").prop("disabled", true);
+
+			var postUrl = "https://api.uconnfintech.org/contact_form/prod" + "/send_message";
+			var postContent = $("#contact_form").serializeJSON();
+			var postResult = $.post(postUrl, postContent);
+
+			postResult.done(function() {
+
+				// Reset Form
+
+					$("#contact_form").each(function() {
+						this.reset();
+
+						// Remove Character count
+
+							$("input[name=sender\\[name\\]]").maxlength('destroy');
+							$("input[name=sender\\[email\\]]").maxlength('destroy');
+							$("textarea[name=message\\[body\\]]").maxlength('destroy');
+
+						// Re-Enable Character Count ( A little messy but couldn't find a reset option in the docs )
+
+								$("input[name=sender\\[name\\]]").maxlength({
+									max: 250,
+									truncate: false,
+									feedbackText: '{r} characters left ({m} max)',
+									overflowText: '{o} characters too many ({m} max)'
+								});
+								$("input[name=sender\\[email\\]]").maxlength({
+									max: 250,
+									truncate: false,
+									feedbackText: '{r} characters left ({m} max)',
+									overflowText: '{o} characters too many ({m} max)'
+								});
+								$("textarea[name=message\\[body\\]]").maxlength({
+									max: 1000,
+									truncate: false,
+									feedbackText: '{r} characters left ({m} max)',
+									overflowText: '{o} characters too many ({m} max)'
+								});													
+
+
+					});
+
+				// Success modal
+
+					$("#contact-form-success-modal").modal({
+						fadeDuration: 250
+					});
+
+			});
+
+			postResult.fail(function() {
+
+				// Fail
+				// Note that responseJSON might be undefined (e.g. in the case of a network issue).
+
+					var responseJSON = postResult.responseJSON;
+
+					if (responseJSON !== undefined && responseJSON.code === 'VALIDATION_FAILED') {
+						// Validation failed modal
+						$("#contact-form-validations-failed-modal").modal({
+							fadeDuration: 250
+						});
+					}
+					else {
+						// Unknown error modal
+						$("#contact-form-unknown-error-modal").modal({
+							fadeDuration: 250
+						});
+					}
+
+			});
+
+			postResult.always(function() {
+
+				// Runs on both success and fail
+				// Re-enable the button, and re-add the callback
+
+					$("#send_message_submit").prop("disabled", false);
+					resetFormSubmitCallback();
+
+			});
+
+		};
+
+		// Only allow one submission at a time with the "one" callback.
+		// This method should be called once initially, and again after each event completes
+		// (to re-enable form submission).
+		var resetFormSubmitCallback = function() {
+			$("#send_message_submit").one("click", contactFormSubmit);
+		};
+		resetFormSubmitCallback();
+		
 	});
 
 })(jQuery);
