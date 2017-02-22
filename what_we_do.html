@@ -63,43 +63,72 @@
 
 					</div>
 
-				<!-- Contact -->
-					<section id="contact">
-						<div class="inner">
-							<section>
-								<form method="post" action="#">
-									<div class="field half first">
-										<label for="name">Name</label>
-										<input type="text" name="name" id="name" />
-									</div>
-									<div class="field half">
-										<label for="email">Email</label>
-										<input type="text" name="email" id="email" />
-									</div>
-									<div class="field">
-										<label for="message">Message</label>
-										<textarea name="message" id="message" rows="6"></textarea>
-									</div>
-									<ul class="actions">
-										<li><input type="submit" value="Send Message" class="special" /></li>
-										<li><input type="reset" value="Clear" /></li>
-									</ul>
-								</form>
-							</section>
-						<section class="split">
+					<!-- Contact -->
+						<section id="contact">
+							<div class="inner">
 								<section>
-									<div class="contact-method">
-										<span class="icon alt fa-envelope"></span>
-										<h3>Email</h3>
-										President: <a href="#">daniel.ruskin@uconn.edu</a> </br>
-									 	Vice President: <a href="#">sean.2.brown@uconn.edu</a> </br>
-										Secretary: <a href="#">cameron.cantelmo@uconn.edu</a> </br>
-										CFO: <a href="#">jason.ciabattoni@uconn.edu</a> </br>
-									</div>
+									<form id="contact_form" method="post" action="#">
+										<div class="field half first">
+											<label for="sender[name]">Name</label>
+											<input type="text" name="sender[name]" id="sender[name]" />
+										</div>
+									  <div class="field half">
+											<label for="sender[email]">Email</label>
+											<input type="text" name="sender[email]" id="sender[email]" />
+										</div>
+										<div class="field">
+											<label for="message[body]">Message</label>
+											<textarea name="message[body]" name="message[body]" id="message[body]" rows="6"></textarea>
+										</div>
+										<ul class="actions">
+											<li><input type="submit" id="send_message_submit" value="Send Message" class="special" /></li>
+											<li><input type="reset" value="Clear" /></li>
+										</ul>
+									</form>
 								</section>
-							</section>
-						</div>
-					</section>
+								<section class="split">
+									<section>
+										<div class="contact-method">
+											<span class="icon alt fa-envelope"></span>
+											<h3>Email</h3>
+											President: <a href="#">daniel.ruskin@uconn.edu</a> </br>
+										 	Vice President: <a href="#">sean.2.brown@uconn.edu</a> </br>
+											Secretary: <a href="#">cameron.cantelmo@uconn.edu</a> </br>
+											CFO: <a href="#">jason.ciabattoni@uconn.edu</a> </br>
+										</div>
+									</section>
+								</section>
+							</div>
+						</section>
+
+						<!--- Contact form modals -->
+							<div class="contact-form-modal" id="contact-form-success-modal" class="modal" style="display:none;">
+
+							  	<p>Thanks!  We'll get back to you as soon as we can.</p>
+
+							  	<a class="button small close-modal-button" rel="modal:close" href="#close-modal">OK</a>
+
+							</div>
+
+
+
+							<div class="contact-form-modal" id="contact-form-validations-failed-modal" class="modal" style="display:none;">
+
+							  	<p>Looks like we had some trouble validating your input.  Please make sure you filled in all of the fields.</p>
+
+								<a class="button small close-modal-button" rel="modal:close" href="#close-modal">OK</a>
+
+							</div>
+
+
+
+							<div class="contact-form-modal" id="contact-form-unknown-error-modal" class="modal" style="display:none;">
+
+							 	<p>Uh-oh - something went wrong!  Could you shoot us over an email at cameron.cantelmo@uconn.edu instead?</p>
+
+							 	 <a class="button small close-modal-button" rel="modal:close" href="#close-modal">OK</a>
+
+							</div>
 
 				<!-- Footer -->
 					<footer id="footer">
@@ -117,13 +146,17 @@
 			</div>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="assets/js/main.js"></script>
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.maxlength.plugin.min.js"></script>
+		<script src="assets/js/jquery.maxlength.min.js"></script>
+		<script src="assets/js/jquery.modal.min.js"></script>
+		<script src="assets/js/jquery.serialize-object.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/skel.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+		<script src="assets/js/main.js"></script>
 
 	</body>
 </html>
